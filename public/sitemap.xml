@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://example.org/</loc>
+    <loc>https://joshua-doolan.github.io/GOV1347-Blog-Posts-F22/</loc>
     <lastmod>2022-09-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://example.org/post/</loc>
+    <loc>https://joshua-doolan.github.io/GOV1347-Blog-Posts-F22/post/</loc>
     <lastmod>2022-09-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://example.org/post/2022-09-15-test-post-1/</loc>
+    <loc>https://joshua-doolan.github.io/GOV1347-Blog-Posts-F22/post/2022-09-15-week-1-9-15-22/</loc>
     <lastmod>2022-09-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://joshua-doolan.github.io/GOV1347-Blog-Posts-F22/categories/</loc>
   </url><url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://joshua-doolan.github.io/GOV1347-Blog-Posts-F22/tags/</loc>
   </url>
 </urlset>

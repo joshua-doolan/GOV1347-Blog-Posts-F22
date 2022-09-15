@@ -1,4 +1,4 @@
 theme: "tale-hugo"
-baseURL: http://example.org/
+baseURL: https://joshua-doolan.github.io/GOV1347-Blog-Posts-F22/
 languageCode: en-us
-title: My New Hugo Site
+title: Election Analytics Blog

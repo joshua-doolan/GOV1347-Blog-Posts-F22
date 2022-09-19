@@ -1,0 +1,62 @@
+---
+title: 'Weel 2 - 2022-09-19: Economic Modeling'
+author: Joshua Doolan
+date: '2022-09-19'
+slug: []
+categories: []
+tags: []
+---
+
+```{r, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+library(tidyverse)
+
+# Import Data
+natl_unemp = read_csv("Section Data/unemployment_national_quarterly_final.csv")
+CPI_df = read_csv("Section Data/CPI_monthly.csv")
+GDP_df = read_csv("Section Data/GDP_quarterly.csv")
+RDI_df = read_csv("Section Data/RDI_quarterly.csv")
+house_pop = read_csv("Section Data/house_popvote_seats.csv")
+```
+
+```{r, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+# Import Data
+midterm_year = (natl_unemp$year %% 2 == 0) & (natl_unemp$year %% 4 != 0)
+natl_unemp$midterm_year = midterm_year
+unemp_diff = natl_unemp %>% 
+  filter((midterm_year == TRUE & (quarter_yr == 3 | quarter_yr == 4))) %>% group_by(year) %>% mutate(unemp_diff = UNRATE - lag(UNRATE)) %>% filter(quarter_yr == 4) %>% select(year, UNRATE, unemp_diff)
+
+natl_df = left_join(unemp_diff, house_pop %>% select(year, H_incumbent_party_majorvote_pct), by = "year")
+```
+
+```{r, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+CPI_df$year = as.numeric(format(CPI_df$DATE, "%Y"))
+CPI_df$month = as.numeric(format(CPI_df$DATE, "%m"))
+CPI_data = CPI_df %>% filter(year %% 2 == 0 & year %% 4 != 0 & month %in% c(7, 10)) %>% group_by(year) %>% mutate(CPI_diff = CPIAUCSL - lag(CPIAUCSL)) %>% filter(month == 10) %>% select(year, CPI_diff)
+natl_df = left_join(natl_df, CPI_data, by = "year")
+```
+
+```{r, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+GDP_data = GDP_df %>% 
+  filter(year %% 2 == 0 & year %% 4 != 0 & quarter_yr == 4) %>% select(year, GDP_growth_pct)
+natl_df = left_join(natl_df, GDP_data, by = "year")
+RDI_data = RDI_df %>% 
+  filter(year %% 2 == 0 & year %% 4 != 0 & quarter_yr == 4) %>% select(year, DSPIC_change_pct)
+natl_df = left_join(natl_df, RDI_data, by = "year")
+```
+
+```{r, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+natl_lm_unemp = lm(H_incumbent_party_majorvote_pct ~ UNRATE, data = natl_df)
+natl_lm_undiff = lm(H_incumbent_party_majorvote_pct ~ unemp_diff, data = natl_df)
+natl_lm_CPI = lm(H_incumbent_party_majorvote_pct ~ CPI_diff, data = natl_df)
+natl_lm_GDP = lm(H_incumbent_party_majorvote_pct ~ GDP_growth_pct, data = natl_df)
+natl_lm_RDI = lm(H_incumbent_party_majorvote_pct ~ DSPIC_change_pct, data = natl_df)
+```
+
+```{r, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+predict(natl_lm_unemp, data.frame(UNRATE = 3.6))
+predict(natl_lm_undiff, data.frame(unemp_diff = -0.4))
+predict(natl_lm_CPI, data.frame(CPI_diff = 8.6))
+predict(natl_lm_GDP, data.frame(GDP_growth_pct = 2.03))
+predict(natl_lm_RDI, data.frame(DSPIC_change_pct = -33.3))
+```
+

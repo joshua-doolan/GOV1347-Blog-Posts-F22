@@ -64,15 +64,64 @@
 		
 
 
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
 <p>Hello everyone! For this week’s blog, we’re going to be taking a look at how various different economic indicators (specifically GDP, RDI, CPI, and Unemployment) produce different outcomes for the 2022 midterm elections.</p>
-<p>Before diving into the details of these different models, I wanted to mention, if you’re interested in seeing some of the “scratch work” for how I come to these analyses, please feel free to view my weekly notebooks on my Github (this week’s can be found here <a href="https://github.com/joshua-doolan/GOV1347-Blog-Posts-F22/blob/main/content/post/2022-09-19-weel-2-2022-09-19-economic-modeling/week2_R.ipynb">here</a>). These contain</p>
+<p>Before diving into the details of these different models, I wanted to mention, if you’re interested in seeing some of the “scratch work” for how I come to these analyses, please feel free to view my weekly notebooks on my Github (this week’s can be found here <a href="https://github.com/joshua-doolan/GOV1347-Blog-Posts-F22/blob/main/content/post/2022-09-19-week-2-2022-09-19-economic-modeling/week2_R.ipynb">here</a>). These contain unfinished, but more exhaustive analyses.</p>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>Moving on to the modeling portion, this week I built univariate linear regression models to predict the 2022 midterm election incumbent popular vote share based on multiple economic factors. Those factors are:</p>
+<ul>
+<li>Gross Domestic Product (GDP) – measuring the economy’s output, often the headline number for the “health” of the economy</li>
+<li>Consumer Price Index (CPI) – a measure of the inflation rate, based on the prices consumers pay for goods. Please note that this inclusdes traditionally volatile prices, like food and energy.</li>
+<li>Real Disposable Income (RDI) – a measure of household income, after adjusting for inflation.</li>
+<li>Unemployment Rate (U-4) – a measure of the percent of job-seekers who are not employed (note, this means that people not seeking a job are uncounted by this measure)</li>
+</ul>
+<p>For all of these data sources, I will be modeling based on the change in the last quarter leading to the midterm election (I only include midterm years in my model). This last quarter is the change from July of the election year to October of the election year. The only exception to this rule is that I produce two models for unemployment: in one I use the last quarter change, and in the other, I use the October rate, as unemployment is already normalizedfor the population.</p>
+</div>
+<div id="model" class="section level1">
+<h1>Model</h1>
+<p>From these data-sources, I built 5 uni-variate linear regression models on each datapoint. The linear regression model assumes that the residuals are normal, with constant variance, assumptions that my sample size was unable to reliably show (as there have only been 18 midterm elections with this data available).</p>
+<p>#Results and Analysis
+Using these models, I got the following results for project Democratic Vote Share:</p>
+<pre class="r"><code>predict(natl_lm_unemp, data.frame(UNRATE = 3.6))</code></pre>
+<pre><code>##        1 
+## 49.80783</code></pre>
+<pre class="r"><code>predict(natl_lm_undiff, data.frame(unemp_diff = -0.4))</code></pre>
+<pre><code>##       1 
+## 50.1722</code></pre>
+<pre class="r"><code>predict(natl_lm_CPI, data.frame(CPI_diff = 7.6))</code></pre>
+<pre><code>##        1 
+## 59.87771</code></pre>
+<pre class="r"><code>predict(natl_lm_GDP, data.frame(GDP_growth_pct = 2.03))</code></pre>
+<pre><code>##        1 
+## 50.03353</code></pre>
+<pre class="r"><code>predict(natl_lm_RDI, data.frame(DSPIC_change_pct = -33.3))</code></pre>
+<pre><code>##        1 
+## 203.8405</code></pre>
+<ul>
+<li>Unemployment (April 2022: 3.6): 49.8</li>
+<li>Unemployment Change (January -&gt; April 2022: -0.4): 50.17</li>
+<li>CPI Change (March -&gt; June 2022: 7.6): 59.87</li>
+<li>GDP Change (Jan -&gt; April 2022: 2.03): 50.03</li>
+<li>RDI Change (Jan -&gt; April 2022: -33.3): 203.84</li>
+</ul>
+<p>Clearly, there are numerous issues with this model, but we can still learn some takeaways from these flaws.</p>
+<ol style="list-style-type: decimal">
+<li>There is no one measure of the “economy”: Particularly as a global pandemic has reshaped the economy, different indicators tell different stories. In conventional economics, a 3.6% unemployment rate would be viewed as an incredibly worker-friendly economy, however, a -33% change in real disposable income would indicate a terrible economy for workers.</li>
+<li>Univariate linear models fail when assumptions are not met: Clearly, it would be impsossible for Democrats to have a 203% share of the popular vote – the linear assumption here clearly fails. This is due to the fact typically RDI quarterly changes are &lt;2%, and so the slope implied by the data is too large for our current situation. This issue could be fixed using a technique such as logistic regression, where we force our predictions to be between 0 and 1.</li>
+<li>In low correlation settings, slopes can be misleading. Our linear models assumed that increasing incomes was negatively predictive of incumbent party performance. While you could create a post-facto explanation for this (people want change when all is going well because they are bored of the status quo), this would buck most conventional wisdom.</li>
+</ol>
+<p>Therefore, if we wanted to build a better economic model to predict election outcomes, we would probably want to move beyond a univariate linear model to a multivariate non-linear model, using multiple indicators to provide a form of verification of economic conditions.</p>
+</div>
 
 
 		
 	</div>
 
 	<div class="pagination">
-		<a href="/GOV1347-Blog-Posts-F22/post/2022-09-19-weel-2-2022-09-19-economic-modeling/" class="left arrow">&#8592;</a>
+		<a href="/GOV1347-Blog-Posts-F22/post/2022-09-15-week-1-9-15-22/" class="left arrow">&#8592;</a>
 
 		<a href="#" class="top">Top</a>
 	</div>
@@ -82,7 +131,7 @@
         		<footer>
 			
 			<span>
-			&copy; <time datetime="2022-09-19 13:20:43.528679 -0400 EDT m=&#43;2.003858827">2022</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			&copy; <time datetime="2022-09-19 13:55:41.892227 -0400 EDT m=&#43;0.689351638">2022</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			</span>
 		</footer>
 

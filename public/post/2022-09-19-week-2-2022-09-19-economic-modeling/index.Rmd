@@ -1,11 +1,12 @@
 ---
-title: 'Weel 2 - 2022-09-19: Economic Modeling'
+title: 'Week 2 - 2022-09-19: Economic Modeling'
 author: Joshua Doolan
 date: '2022-09-19'
 slug: []
 categories: []
 tags: []
 ---
+
 
 ```{r, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
 library(tidyverse)

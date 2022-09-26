@@ -55,9 +55,14 @@ Two possible reasons for this:
 ### Current Prediction
 Using the most promising linear model (annual generic ballot average), the 2022 election is predicted for the Democrats (house majority party) to receive 50.96\% of the two-party popular vote, which is at odds with the current expert view that Republicans will win the majority popular vote (e.g. 538 has GOP at a 51.3\% two-party popular vote). 
 
+# Blog Extension
+538's model (which I will use their "Classic" model as they state that "You should think of Classic as the preferred or default version of FiveThirtyEight’s forecast unless we otherwise specify.") is essentially a polling-based probabilistic model for predicting specific-races supplemented with fundamentals. At the heart of the model is 538 taking polling averages, adjusting them based on assumed polling bias, and then extrapolating polls from one district to others based on the simiilarity of districts (through their CANTOR model). For the fundamentals, they focus highly on the partisan lean of a district, and supplement that information with fundraising data, incumbency, voting records, and more.
 
-#Blog Extension
+The Economist's model is a Bayesian fundamentals-based model which incorporates polling data to update its fundamentals prior. Specifically, it uses a Beta distribution prior (which guarentees results between 0 and 1) to predict state partisan lean (how much more a state is D or R than the nation), and predict the nationwide average, to get estimates for each state and therefore the national electoral college. Notably, it first incorporates fundamentals and then polls. 
 
+I would like to point out one large area of comparison which is more subtle, which is the transparency of the models. 538 does not provide source code for its model, only the input polling data and the resulting model outputs. It does not tell us if they use random forests, MCMC, how they conduct similairities, all of which would seem important to the model in practice. Therefore, when the model fails, as it has done before, it cannot be caught, as oppoosed to the Economist, whose source code is availaible, so when it fails (as it has), it can be easily and visibly debugged.
+
+Overall, I think that 538s model is better suited for house elections, given that it is able to incorporate district level data (such as campaign contributions), a signal which would be lost in the large Bayesian Economist model. However, I would be greatly concerned that the 538 model is not transparent, and therefore, the nuances which matter will remain unknown (as I imagine is the intent in keeping the model closed).
 
 
 

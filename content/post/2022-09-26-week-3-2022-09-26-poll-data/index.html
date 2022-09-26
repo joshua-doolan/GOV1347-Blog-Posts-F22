@@ -9,3 +9,50 @@ tags: []
 
 
 
+<div id="modeling-update" class="section level1">
+<h1>Modeling Update</h1>
+<p>For this week’s modeling update, I begin looking at the role of polling data in improving modeling outcomes. To investigate the role, I will start out with a base model (including economic factors and incumbency) and then add to it based on the polling data. I will be taking a look at predicting house-incumbent (the party with the plurality of house seats) two-party popular vote share.</p>
+<p>As always, you can find my scratchwork <a href="https://github.com/joshua-doolan/GOV1347-Blog-Posts-F22/blob/main/content/post/2022-09-26-week-3-2022-09-26-poll-data/week3_py.ipynb">here</a>.</p>
+<div id="base-model" class="section level2">
+<h2>Base Model</h2>
+<p>For the base model, I will start with a model solely based on economic and incumbency factors. As the main purpose of this week is to investigate polling data, I will use a simple / toy model with lots of room for improvement. It is a multivariate linear regression model with three factors (and no interaction variables):</p>
+<ul>
+<li>Q8 (Oct 1) GDP Annual Growth Rate (for economic information)</li>
+<li>President Incumbency (1 if the president is the same party as the house majority party, 0 if not)</li>
+<li>Midterm Indicator (1 if the race is a midterm year, 0 if not)</li>
+</ul>
+<p>Please note that this model also by definition takes into account the house’s incumbency, because I am training on and predicting the popular vote share of the house majority party (you could imagine this information being reflected in the intercept).</p>
+<p>This model achieves an <span class="math inline">\(R^2\)</span> of <span class="math inline">\(0.226\)</span>, which indicates the model has some base foundation knowledge, but does not learn details well.</p>
+</div>
+<div id="polling-data" class="section level2">
+<h2>Polling Data</h2>
+<div id="congressional-generic-ballot" class="section level3">
+<h3>Congressional Generic Ballot</h3>
+<p>My next step was to look at the “generic ballot” poll data, which takes the form of roughly “which party would you vote for in the upcoming election” regardless of district, state, or local race. I thought this could be appropriate for national-level outcomes as it is roughly a national-level average sentiment.</p>
+<p>My first model using this incorporated the election-year average spread for the majority party. (E.g. if the GOP held a majority of house seats, this would be 2 if the GOP polled on average 2 percentage points above the democrats, and -2 if they polled on average 2 below). I deliberately chose to do the average spread, because there seemed to be large cases of non-response. The majority party could sometimes have only 45% of the generic ballot, but still be 3 points ahead on spread, while they could also be 48% and 3 points behind. Using the spread, my model improved to a <span class="math inline">\(R^2 = 0.658\)</span>, a vast improvement.</p>
+<p>However, this average includes polls taken as far away as 10 months prior to the election, so I wanted to introduce a recency bias to the polling. With economic indicators, recency plays a large role, and likewise, I assumed recency would play a large role with the generic ballot. I considered multiple approaches, such as weighting with a decay factor (either linear or exponential) based on the number of days prior to the election, but decided instead to use a binary cutoff of 20 days prior to the election, seeking to represent a “final polling average.” (in 1952 and 1972, the data did not have any polls in the last 20 days, so I used the annual average). This model achieved a nearly equivalent but lower <span class="math inline">\(R^2 = 0.650\)</span>.</p>
+<p>This seems to indicate that recency is less important with polling, and I bring up two possible reasons:
+1. The vast majority of polling is done near election day, so the the generic ballot already has a recency bias.
+2. The averages are roughly consistent in election years.</p>
+<p>However, this model does not take into account interaction effects. Particularly of interest to me was the interaction of the midterm year with the polling data, as you could assume that the generic ballot carries less importance in presidential election years (as voters are more focused on the president). However, I also realized that ther were many pther potential interactions, and I did not want to constrain my model to just the ones I defined.</p>
+<p>Therefore, I used a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html">Random Forest</a> model with 1000 trees, which builds a decision tree based on random sampling of the data. This allows for different interactions in each tree. Using this model, I was able to improve the year-average model to an <span class="math inline">\(R^2 = 0.910\)</span> and the last-20 days model to an <span class="math inline">\(R^2 = 0.909\)</span>, following the same trend of equivalent but lower. This shows there is lots of information within the interactions, but provides less insight on which interactions are important, which will be a topic for future investigation. This random forest model also appears to overfit, as when conducting 5-fold cross-validation, the <span class="math inline">\(R^2\)</span> varies between 0.7 and negative numbers, indicating a large degree of overfit, however, even our simple non-polling based linear model also fails under cross-validation, varying between <span class="math inline">\(0.06\)</span> and negative numbers.</p>
+</div>
+<div id="presidential-approval-polling" class="section level3">
+<h3>Presidential Approval Polling</h3>
+<p>To account for the fact that midterm elections can be viewed as a referendum on the incumbent president, I also built a model with presidential approval polling. Given the lack of recency bias seen before, I decided to simply use the annual average for presidential approval. I therefore created a multivariate linear regression with:</p>
+<ul>
+<li>Base model factors</li>
+<li>Majority Party Presidential Approval (e.g. if the house is controlled by Democrats but the president is Republican, take the opposite of the presidential approval)</li>
+</ul>
+<p>Based on this, we were able to boost our base model’s <span class="math inline">\(R^2\)</span> to 0.28. This seems to indicate presidential approval is a far less important predictor than generic ballot.</p>
+<p>Two possible reasons for this:
+1. Voters focus on the Congress’ party when voting for Congress
+2. (More likely) Voters incorporate presidential approval when voting for congress, but how much they incorporate it is already reflected in the generic ballot in a more direct signal.</p>
+</div>
+<div id="current-prediction" class="section level3">
+<h3>Current Prediction</h3>
+<p>Using the most promising linear model (annual generic ballot average), the 2022 election is predicted for the Democrats (house majority party) to receive 50.96% of the two-party popular vote, which is at odds with the current expert view that Republicans will win the majority popular vote (e.g. 538 has GOP at a 51.3% two-party popular vote).</p>
+<p>#Blog Extension</p>
+</div>
+</div>
+</div>

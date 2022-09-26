@@ -13,7 +13,8 @@
       <pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>https://joshua-doolan.github.io/GOV1347-Blog-Posts-F22/post/2022-09-26-week-3-2022-09-26-poll-data/</guid>
-      <description></description>
+      <description>Modeling Update For this week’s modeling update, I begin looking at the role of polling data in improving modeling outcomes. To investigate the role, I will start out with a base model (including economic factors and incumbency) and then add to it based on the polling data. I will be taking a look at predicting house-incumbent (the party with the plurality of house seats) two-party popular vote share.
+As always, you can find my scratchwork here.</description>
     </item>
     
     <item>

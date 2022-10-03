@@ -13,7 +13,9 @@
       <pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate>
       
       <guid>https://joshua-doolan.github.io/GOV1347-Blog-Posts-F22/post/2022-10-03-week-4-10-3-22-incumbency-experts/</guid>
-      <description></description>
+      <description>Model Update This week, I will be taking a different approach to vote-share prediction than before. This will be my first week incorporating district-level predictions. District-level predictions all for more nuance, but suffer from a lack of commonly accessible data (a large issue for linear regression models). To begin this district analysis, I will focus on incumbency and expert predictions.
+As always, scratch work can be found here.
+Incumbency Incumbency has been widely shown to be a large predictor of electoral outcomes.</description>
     </item>
     
     <item>

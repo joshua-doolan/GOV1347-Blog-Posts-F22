@@ -6,3 +6,22 @@ slug: []
 categories: []
 tags: []
 ---
+
+# Model Update
+This week, I will be taking a different approach to vote-share prediction than before. This will be my first week incorporating district-level predictions. District-level predictions all for more nuance, but suffer from a lack of commonly accessible data (a large issue for linear regression models). To begin this district analysis, I will focus on incumbency and expert predictions.
+
+As always, scratch work can be found [here](https://github.com/joshua-doolan/GOV1347-Blog-Posts-F22/blob/main/content/post/2022-10-03-week-4-10-3-22-incumbency-experts/week4_py.ipynb).
+
+## Incumbency
+Incumbency has been widely shown to be a large predictor of electoral outcomes. As such, predicting all race outcomes based on incumbency alone would lead to a boring task, as by predicting 100\% incumbent wins re-election will result in a correct prediction 90\% of the time. Therefore, I made two modifications to the set up. First, I will predict vote-share as opposed to probability of winning (as vote share can have much larger fluctuations) and second I will only predict competitive races, by definition lowering the incumbent's chance of winning (by definition of a competitive race). Importantly for incumbency, I will define it as two separate indicator variables, one if the democrat is an incumbent, and the second variable if the republican is the incumbent. This is a useful definition (as opposed to one variable, which is 1 for Dem and -1 for Rep, for example) for linear regression for multiple reasons.
+- Asymetric advantage: this allows Republican and Democratic incumbents to be treated different.
+- Multiple incumbents: when redistricting, if the district merges between opposite parties, we can handle the advantages.
+- No incumbents: In the case of no incumbents, the weight goes to 0.
+However, by considering only candidate incumbency, I am losing valuable party information (e.g. if a longtime representative retires, my model gives no advantage to their party). However, I hope to capture this information via the expert predictions. 
+
+## Expert Predictions
+
+
+## District Data / Modeling Choices
+
+# Blog Extension -- Expert Performance in 2018

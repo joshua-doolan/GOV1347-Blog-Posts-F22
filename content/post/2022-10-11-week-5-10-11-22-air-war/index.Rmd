@@ -14,7 +14,44 @@ As always, scratch work can be found [here]https://github.com/joshua-doolan/GOV1
 
 ```{r echo=FALSE, results="hide", message=FALSE, warning=FALSE}
 library("tidyverse")
-competitive_races = read_csv("Section data/train_ads.csv")
+ads_races = read_csv("Section data/train_ads.csv")
 ```
 
 # Advertising Data
+
+This week, I take a look at two possible predictors for advertising on the district level: absolute advertising spend advantage. In theory, these are both measures of the same underlying data (both rely on $ spent), but have different potential modeling effects:
+
+- Absolute Advertising Spend Advantage: this is the \$ more that Republicans spent on ads than Democrats. In theory, this provides more information than ad spend proportion, as we can imagine in low-ad spend races that the proportion could be very high, but the absolute advantage low, and the average voter may have seen no ads. However, this is potentially difficult to use in a linear model, as the large outliers will have outsize effects on the parameters.
+- Scaled Advertising Spend Proportion (1 if only Republicans spend, -1 if only Democrats spend, 0 if Dem Spend = GOP Spend): In theory, the vast majority of races will have smaller spending than the extremes, so this should capture that information. These are scaled to avoid the trap of having full democrat spend at 0 causing the linear model from being unable to capture this data, and to differentiate from races with no spending.
+
+# Models
+
+Model 1: Baseline (Expert Ratings + Incumbency)
+
+```{r echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+rating_lm = lm(RepVotesMajorPercent ~ avg_rating + `Rep Inc` + `Dem Inc`,data=ads_races)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+summary(rating_lm)
+```
+
+Model 2: 
+
+```{r echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+ads_lm = lm(RepVotesMajorPercent ~ avg_rating + `Rep Inc` + `Dem Inc` + `Rep Spend Advantage`,data=ads_races)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+summary(ads_lm)
+```
+
+Model 3:
+
+```{r echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+ads_prop = lm(RepVotesMajorPercent ~ avg_rating + `Rep Inc` + `Dem Inc` + `Rep Spend Proportion`,data=ads_races)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+summary(ads_prop)
+```

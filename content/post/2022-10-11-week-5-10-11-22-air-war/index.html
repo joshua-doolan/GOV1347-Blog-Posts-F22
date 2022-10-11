@@ -16,4 +16,85 @@ tags: []
 </div>
 <div id="advertising-data" class="section level1">
 <h1>Advertising Data</h1>
+<p>This week, I take a look at two possible predictors for advertising on the district level: absolute advertising spend advantage. In theory, these are both measures of the same underlying data (both rely on $ spent), but have different potential modeling effects:</p>
+<ul>
+<li>Absolute Advertising Spend Advantage: this is the $ more that Republicans spent on ads than Democrats. In theory, this provides more information than ad spend proportion, as we can imagine in low-ad spend races that the proportion could be very high, but the absolute advantage low, and the average voter may have seen no ads. However, this is potentially difficult to use in a linear model, as the large outliers will have outsize effects on the parameters.</li>
+<li>Scaled Advertising Spend Proportion (1 if only Republicans spend, -1 if only Democrats spend, 0 if Dem Spend = GOP Spend): In theory, the vast majority of races will have smaller spending than the extremes, so this should capture that information. These are scaled to avoid the trap of having full democrat spend at 0 causing the linear model from being unable to capture this data, and to differentiate from races with no spending.</li>
+</ul>
+</div>
+<div id="models" class="section level1">
+<h1>Models</h1>
+<p>Model 1: Baseline (Expert Ratings + Incumbency)</p>
+<pre class="r"><code>summary(rating_lm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = RepVotesMajorPercent ~ avg_rating + `Rep Inc` + 
+##     `Dem Inc`, data = ads_races)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -18.0718  -1.8850  -0.0592   1.9611  13.4690 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   37.15187    0.40276  92.244  &lt; 2e-16 ***
+## avg_rating     3.33350    0.07896  42.220  &lt; 2e-16 ***
+## `Rep Inc`TRUE -0.95869    0.27661  -3.466 0.000553 ***
+## `Dem Inc`TRUE  1.08018    0.30461   3.546 0.000411 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.123 on 905 degrees of freedom
+## Multiple R-squared:  0.7186, Adjusted R-squared:  0.7177 
+## F-statistic: 770.4 on 3 and 905 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Model 2:</p>
+<pre class="r"><code>summary(ads_lm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = RepVotesMajorPercent ~ avg_rating + `Rep Inc` + 
+##     `Dem Inc` + `Rep Spend Advantage`, data = ads_races)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -17.1774  -1.8662  -0.0107   1.8217  11.6636 
+## 
+## Coefficients:
+##                         Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            3.702e+01  4.694e-01  78.875   &lt;2e-16 ***
+## avg_rating             3.295e+00  9.450e-02  34.867   &lt;2e-16 ***
+## `Rep Inc`TRUE         -6.939e-01  3.102e-01  -2.237   0.0256 *  
+## `Dem Inc`TRUE          3.720e-01  3.835e-01   0.970   0.3323    
+## `Rep Spend Advantage`  2.016e-08  4.181e-08   0.482   0.6298    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.099 on 638 degrees of freedom
+##   (266 observations deleted due to missingness)
+## Multiple R-squared:  0.7219, Adjusted R-squared:  0.7201 
+## F-statistic:   414 on 4 and 638 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Model 3:</p>
+<pre class="r"><code>summary(ads_prop)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = RepVotesMajorPercent ~ avg_rating + `Rep Inc` + 
+##     `Dem Inc` + `Rep Spend Proportion`, data = ads_races)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -17.1972  -1.8844   0.0055   1.8481  11.6736 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            36.99825    0.46840  78.988   &lt;2e-16 ***
+## avg_rating              3.29920    0.09441  34.944   &lt;2e-16 ***
+## `Rep Inc`TRUE          -0.69551    0.31020  -2.242   0.0253 *  
+## `Dem Inc`TRUE           0.37699    0.38337   0.983   0.3258    
+## `Rep Spend Proportion` -0.02139    0.12266  -0.174   0.8616    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.1 on 638 degrees of freedom
+##   (266 observations deleted due to missingness)
+## Multiple R-squared:  0.7218, Adjusted R-squared:   0.72 
+## F-statistic: 413.8 on 4 and 638 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>

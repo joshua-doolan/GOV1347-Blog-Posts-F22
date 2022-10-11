@@ -24,7 +24,8 @@ tags: []
 </div>
 <div id="models" class="section level1">
 <h1>Models</h1>
-<p>Model 1: Baseline (Expert Ratings + Incumbency)</p>
+<div id="model-1-baseline-expert-ratings-incumbency" class="section level2">
+<h2>Model 1: Baseline (Expert Ratings + Incumbency)</h2>
 <pre class="r"><code>summary(rating_lm)</code></pre>
 <pre><code>## 
 ## Call:
@@ -47,7 +48,10 @@ tags: []
 ## Residual standard error: 3.123 on 905 degrees of freedom
 ## Multiple R-squared:  0.7186, Adjusted R-squared:  0.7177 
 ## F-statistic: 770.4 on 3 and 905 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>Model 2:</p>
+<p>Included as reference, we see a <span class="math inline">\(R^2\)</span> of 0.71, with each variable having very low p-values, showing that this is a dense baseline (no unnecessary variables).</p>
+</div>
+<div id="model-2-absolute-advertising-advantage" class="section level2">
+<h2>Model 2: Absolute Advertising Advantage</h2>
 <pre class="r"><code>summary(ads_lm)</code></pre>
 <pre><code>## 
 ## Call:
@@ -72,7 +76,10 @@ tags: []
 ##   (266 observations deleted due to missingness)
 ## Multiple R-squared:  0.7219, Adjusted R-squared:  0.7201 
 ## F-statistic:   414 on 4 and 638 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>Model 3:</p>
+<p>We see here that the spending advantage has led to a very low (<span class="math inline">\(10^{-8}\)</span>) coefficient for advertising spend advantage. In reality, this means that in order to see a 1% increase in vote share, a spending advatnage of $100M is needed (for an individual race). This would seem to indicate that advertising advantage is not very predictive. While our R^2 barely improves to 0.72, this indicates that for most every congressional race, the most amounts of spending only swing single digit votes.</p>
+</div>
+<div id="model-3-advertising-proportion" class="section level2">
+<h2>Model 3: Advertising Proportion</h2>
 <pre class="r"><code>summary(ads_prop)</code></pre>
 <pre><code>## 
 ## Call:
@@ -97,4 +104,11 @@ tags: []
 ##   (266 observations deleted due to missingness)
 ## Multiple R-squared:  0.7218, Adjusted R-squared:   0.72 
 ## F-statistic: 413.8 on 4 and 638 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We see here the same effect on R^2, but note that we see a negative coefficient on advertising spending. This seems to indicate that there is so much noise (also indicated by the p value of 0.89), that this is likely a spurious correlation, and provides less information on the effects on ads, even though the coefficient is caled to a more reasonable standard.</p>
+<p>Accordingly, I would exclude advertising spending from future models, but would be interested in studying weighting by recency. However, since most spending occurs at the end of the race, I would imagine a recency weighting to have little effect, as the data is already essentially recently biased.</p>
+</div>
+</div>
+<div id="blog-extension-3-gpr" class="section level1">
+<h1>Blog Extension 3: GPR</h1>
+<p>Gerber et al. estimate GPR by conducting telephone surveys asking if respondents had seen an ad (although whether they asked this question was randomized, so they only asked it for 1/3 of questions). Using this, they estimate the reach. In theory, to measure advertising effects in the digital age, you could estimate who was reached by a digital ad (by targeting them to specific people), and then measuring turnout post-facto using voting data. You could also run a survey where you show people an ad, and then ask aboutv= voting.</p>
 </div>

@@ -44,3 +44,22 @@ exp_lm = lm(data=train_expert_df, formula=RepVotesMajorPercent ~ dist_turnout + 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 summary(exp_lm)
 ```
+
+According to this model, large turnout has a large positive predictive effect on Republican vote share, which follows the logic that high turnout favors Republicans. Given we only train on 2012+ data, this suggests that this trend persists even into the modern day.
+
+# Non-Competitive Race Model
+
+For non-competitive races, we remove the expert ratings:
+
+```{r echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+train_nonexp_df = train_df %>% filter(is.na(train_df$avg_rating))
+train_lm = lm(data=train_nonexp_df, formula=RepVotesMajorPercent ~ dist_turnout + R_inc + D_inc)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+summary(train_lm)
+```
+
+This accordingly continues to show turnout favoring Republicans, demonstrating consistency between these. However, we see that turnout is very low importance compared to other factors such as incumbency. Furthermore, this model has very low R squared for races which should potentially be easier to predict, as they are non-competitve. However, perhaps we would only see improvement on in-sample accuracy if we reframed this as a classification problem (predict winners) as opposed to regression (vote share), as it may be difficult to predict factors such as whether a race is contested from just these features.
+
+# 2022 Prediction

@@ -108,6 +108,38 @@
 ## Residual standard error: 3.183 on 477 degrees of freedom
 ## Multiple R-squared:  0.7297, Adjusted R-squared:  0.7274 
 ## F-statistic: 321.9 on 4 and 477 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>According to this model, large turnout has a large positive predictive effect on Republican vote share, which follows the logic that high turnout favors Republicans. Given we only train on 2012+ data, this suggests that this trend persists even into the modern day.</p>
+</div>
+<div id="non-competitive-race-model" class="section level1">
+<h1>Non-Competitive Race Model</h1>
+<p>For non-competitive races, we remove the expert ratings:</p>
+<pre class="r"><code>summary(train_lm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = RepVotesMajorPercent ~ dist_turnout + R_inc + D_inc, 
+##     data = train_nonexp_df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -49.345  -9.054  -1.233   9.691  52.800 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    47.200      1.535  30.758   &lt;2e-16 ***
+## dist_turnout    4.674      2.077   2.251   0.0245 *  
+## R_incTRUE      20.649      1.315  15.700   &lt;2e-16 ***
+## D_incTRUE     -24.643      1.312 -18.787   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15.23 on 1627 degrees of freedom
+##   (49 observations deleted due to missingness)
+## Multiple R-squared:  0.6678, Adjusted R-squared:  0.6672 
+## F-statistic:  1090 on 3 and 1627 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>This accordingly continues to show turnout favoring Republicans, demonstrating consistency between these. However, we see that turnout is very low importance compared to other factors such as incumbency. Furthermore, this model has very low R squared for races which should potentially be easier to predict, as they are non-competitve. However, perhaps we would only see improvement on in-sample accuracy if we reframed this as a classification problem (predict winners) as opposed to regression (vote share), as it may be difficult to predict factors such as whether a race is contested from just these features.</p>
+</div>
+<div id="prediction" class="section level1">
+<h1>2022 Prediction</h1>
 </div>
 
 
@@ -125,7 +157,7 @@
         		<footer>
 			
 			<span>
-			&copy; <time datetime="2022-10-19 13:47:52.53049 -0400 EDT m=&#43;0.333444290">2022</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			&copy; <time datetime="2022-10-19 13:55:21.554367 -0400 EDT m=&#43;0.391716460">2022</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			</span>
 		</footer>
 

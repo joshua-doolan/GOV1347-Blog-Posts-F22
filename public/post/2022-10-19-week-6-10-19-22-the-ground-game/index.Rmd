@@ -63,3 +63,11 @@ summary(train_lm)
 This accordingly continues to show turnout favoring Republicans, demonstrating consistency between these. However, we see that turnout is very low importance compared to other factors such as incumbency. Furthermore, this model has very low R squared for races which should potentially be easier to predict, as they are non-competitve. However, perhaps we would only see improvement on in-sample accuracy if we reframed this as a classification problem (predict winners) as opposed to regression (vote share), as it may be difficult to predict factors such as whether a race is contested from just these features.
 
 # 2022 Prediction
+
+For making 2022 predictions using my models, I ran into two large issues:
+1. Incumbency Information
+2. Turnout Infomration
+
+I could not find a good existing data source with tabular information on district level incumbency. Most data sources may show incumbency information only with battleground information. Therefore, I made my own table [here](https://github.com/joshua-doolan/GOV1347-Blog-Posts-F22/blob/main/content/post/2022-10-19-week-6-10-19-22-the-ground-game/district_incumbency.csv) based on the data available from Wikipedia [here](https://en.wikipedia.org/wiki/2022_United_States_House_of_Representatives_elections) -- the code can be found in my data preparation notebook cell 19.
+
+I then use 538's turnout prediction based on their topline [data](https://github.com/joshua-doolan/GOV1347-Blog-Posts-F22/blob/main/content/post/2022-10-19-week-6-10-19-22-the-ground-game/538_house_district_toplines_2022.csv) over their estimate of the CVAP), 

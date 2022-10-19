@@ -64,6 +64,51 @@
 		
 
 
+<p>For this week, I focus my attention on two things: first incorporating information about the ground game (in the form of district level turnout) and on expanding my district model beyond competitive races.</p>
+<p>As always, you can find my data preparation work <a href="https://github.com/joshua-doolan/GOV1347-Blog-Posts-F22/blob/main/content/post/2022-10-19-week-6-10-19-22-the-ground-game/week6_py.ipynb">here</a>.</p>
+<div id="ground-game" class="section level1">
+<h1>Ground Game</h1>
+<p>To incorporate the ground game, I focused on district-level turnout information. This is due to the fact that one of the main efforts of the ground game is to mobilize voters, which would represent itself in the turnout. However, this ignores two other objectives of the ground game, converting voters (which is what we are trying to predict) and gaining donations, which we could measure with FEC contribution data.</p>
+<p>The largest practical issue with using ground game information to predict elections is the fact that turnout is only measured at the time of the election. Therefore, while I can train a model on prior turnout, 2022’s turnout is unobserved. Therefore, I focused on two possible ways to combat this:
+- Predict Turnout based on other observed factors: from a statistical perspective, this is inefficient, as those data could instead be use to predict the vote total, and instead using that data solely to predict turnout is limiting our model’s degrees of freedom. However, you can construct this multi level prediction to produce non-linear data. In practice, this would involve just testing my model’s sensistivity to turnout, which can be observed in the coefficients, and approximate it with national level turnout.
+- Use external forecasts for turnout: External forecasts may incorporate additional data that I do not observe, as well as non-linearities. Accordingly, I chose to include 538’s district turnout predictions for 2022 to estimate my 2022 district turnout.</p>
+<p>One nice thing about incorporating turnout data is that it potentially allows us to remove the “isMidtermYear” coefficient from our data. One of the largest differences between midterm years and presidential election years is the size of turnout. Therefore, you can either view including turnout as a more direct measurement of midterm differences, or at the very least as replacing a large percentage of the underlying effects.</p>
+</div>
+<div id="expanding-beyond-competitive-races" class="section level1">
+<h1>Expanding Beyond Competitive Races</h1>
+<p>Prior to this week, I had focused on only predicting competitive races, as a large part of my model had been based upon expert predictions. However, non-competitive races did not have expert ratings, as they are assumed to be already decided. Using a linear model, this is difficult to work around, as assigning the races to have a neutral/toss-up expert placeholder value of 4 would incorrectly bias the data towards being competitive, when the reality is that these are the least competitive races.</p>
+<p>Therefore, I instead create two models: one model for competitive races which includes expert ratings, and one model for non-competitive races without those ratings.</p>
+</div>
+<div id="competitive-race-model" class="section level1">
+<h1>Competitive Race Model</h1>
+<p>THis model, as per the extension, uses expert ratings, incumbency, and turnout.
+- Expert ratings: Average of observed ratings (1-7)
+- Incumbency: district level incumbency (one column for each party)
+- District Level Turnout: Votes for a major party / CVAP (note that this may have issues with large 3rd parties, as this would represent as low turnout)</p>
+<pre class="r"><code>summary(exp_lm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = RepVotesMajorPercent ~ dist_turnout + R_inc + D_inc + 
+##     avg_rating, data = train_expert_df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -18.3762  -1.7833   0.0669   1.7568  12.8139 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   35.9403     0.7448  48.254  &lt; 2e-16 ***
+## dist_turnout   2.4041     0.8236   2.919  0.00368 ** 
+## R_incTRUE     -0.7000     0.3872  -1.808  0.07124 .  
+## D_incTRUE      1.3377     0.4578   2.922  0.00364 ** 
+## avg_rating     3.2438     0.1112  29.179  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.183 on 477 degrees of freedom
+## Multiple R-squared:  0.7297, Adjusted R-squared:  0.7274 
+## F-statistic: 321.9 on 4 and 477 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
 
 
 		
@@ -80,7 +125,7 @@
         		<footer>
 			
 			<span>
-			&copy; <time datetime="2022-10-19 13:21:47.508779 -0400 EDT m=&#43;0.163490889">2022</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			&copy; <time datetime="2022-10-19 13:47:52.53049 -0400 EDT m=&#43;0.333444290">2022</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			</span>
 		</footer>
 

@@ -6,3 +6,41 @@ slug: []
 categories: []
 tags: []
 ---
+
+For this week, I focus my attention on two things: first incorporating information about the ground game (in the form of district level turnout) and on expanding my district model beyond competitive races.
+
+As always, you can find my data preparation work [here](https://github.com/joshua-doolan/GOV1347-Blog-Posts-F22/blob/main/content/post/2022-10-19-week-6-10-19-22-the-ground-game/week6_py.ipynb). 
+
+# Ground Game
+
+To incorporate the ground game, I focused on district-level turnout information. This is due to the fact that one of the main efforts of the ground game is to mobilize voters, which would represent itself in the turnout. However, this ignores two other objectives of the ground game, converting voters (which is what we are trying to predict) and gaining donations, which we could measure with FEC contribution data.
+
+The largest practical issue with using ground game information to predict elections is the fact that turnout is only measured at the time of the election. Therefore, while I can train a model on prior turnout, 2022's turnout is unobserved. Therefore, I focused on two possible ways to combat this: 
+- Predict Turnout based on other observed factors: from a statistical perspective, this is inefficient, as those data could instead be use to predict the vote total, and instead using that data solely to predict turnout is limiting our model's degrees of freedom. However, you can construct this multi level prediction to produce non-linear data. In practice, this would involve just testing my model's sensistivity to turnout, which can be observed in the coefficients, and approximate it with national level turnout.
+- Use external forecasts for turnout: External forecasts may incorporate additional data that I do not observe, as well as non-linearities. Accordingly, I chose to include 538's district turnout predictions for 2022 to estimate my 2022 district turnout.
+
+One nice thing about incorporating turnout data is that it potentially allows us to remove the "isMidtermYear" coefficient from our data. One of the largest differences between midterm years and presidential election years is the size of turnout. Therefore, you can either view including turnout as a more direct measurement of midterm differences, or at the very least as replacing a large percentage of the underlying effects.
+
+# Expanding Beyond Competitive Races
+
+Prior to this week, I had focused on only predicting competitive races, as a large part of my model had been based upon expert predictions. However, non-competitive races did not have expert ratings, as they are assumed to be already decided. Using a linear model, this is difficult to work around, as assigning the races to have a neutral/toss-up expert placeholder value of 4 would incorrectly bias the data towards being competitive, when the reality is that these are the least competitive races. 
+
+Therefore, I instead create two models: one model for competitive races which includes expert ratings, and one model for non-competitive races without those ratings.
+
+# Competitive Race Model
+
+THis model, as per the extension, uses expert ratings, incumbency, and turnout.
+- Expert ratings: Average of observed ratings (1-7)
+- Incumbency: district level incumbency (one column for each party)
+- District Level Turnout: Votes for a major party / CVAP (note that this may have issues with large 3rd parties, as this would represent as low turnout)
+
+```{r echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+library(tidyverse)
+train_df = read_csv("train_races.csv")
+train_expert_df = train_df %>% drop_na()
+exp_lm = lm(data=train_expert_df, formula=RepVotesMajorPercent ~ dist_turnout + R_inc + D_inc + avg_rating)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+summary(exp_lm)
+```

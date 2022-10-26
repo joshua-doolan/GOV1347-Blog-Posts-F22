@@ -9,7 +9,29 @@ tags: []
 
 
 
-<p>Intro</p>
+<div id="model-update" class="section level1">
+<h1>Model Update</h1>
+<p>This week for the model, I wanted to incorporate shocks, but inherently, these are non-repeatable events. Instead, I focused on testing the sensititivity of my existing model.</p>
+<p>For review, my previous model had two components: a model for predicting competitive races, and a model for predicting non-competitive races. Each model seeks to predict for an individual district the two party vote share for Republicans. Each model carries the same weights/parameters for each district, which is a deliberate modeling choice as opposed to unique parameters for each district, because in 2022, the redistricting inherently causes some issues (for new districts, there is zero data, and for moved districts, such as CA-45, the underlying demographics have fundamentally shifted).</p>
+<p>My non-competitive race model simply uses district-level incumbency (binary indicators each for D and R) and turnout.</p>
+<p>My competitive race model uses the same data, with expert predictions.</p>
+<p>Previously, my model had predicted the following:</p>
+<pre><code>## [1] &quot;Competitive R Seats: 68/140 = 48.5714285714286%&quot;</code></pre>
+<pre><code>## [1] &quot;Non-Competitive R Seats: 136/295 = 46.1016949152542%&quot;</code></pre>
+<pre><code>## [1] &quot;Total R Seats: 204/435 = 0.468965517241379%&quot;</code></pre>
+<p>At first, these predictions seem low given the recent polling surge of republicans. However, this data is entirely an incumbency based model, and so it generates an advantage for democrats due to their greater number of incumbents. Importantly, the expert model predicts a greater percentage of Republicans, demonstrating that the additional data brings in some Republican leaning.</p>
+<p>To estimate the effect of shocks on my model, I focus on the upper and lower prediction intervals. To do so, for each district, I predict the upper and lower 95% prediction interval, and then recalculate this seat share. Inherently, this is a very flawed approach, as it assumes a 100% correlation in the results, whereas in all likelihoof, shocks would appear only in some districts. Nevertheless, we get the following results:</p>
+<p><strong>Democratic Shock: Each District Lower 95%</strong></p>
+<pre><code>## [1] &quot;Competitive R Seats: 39/140 = 27.8571428571429%&quot;</code></pre>
+<pre><code>## [1] &quot;Non-Competitive R Seats: 0/295 = 0%&quot;</code></pre>
+<pre><code>## [1] &quot;Total R Seats: 39/435 = 0.0896551724137931%&quot;</code></pre>
+<p><strong>Republican Shock: Each District Upper 95%</strong></p>
+<pre><code>## [1] &quot;Competitive R Seats: 116/140 = 82.8571428571429%&quot;</code></pre>
+<pre><code>## [1] &quot;Non-Competitive R Seats: 295/295 = 100%&quot;</code></pre>
+<pre><code>## [1] &quot;Total R Seats: 411/435 = 0.944827586206897%&quot;</code></pre>
+<p>Notably, we see that the competitive district model has much tighter bounds, and therefore seems more realistically resistant to shocks compared to the non-competitive district model, which assumes complete control on either side. At first, this result may seem non-sensical, as we would expect non-competitive districts to be much more resilient, as they should be further from the tipping point, and competitive models highly variable, as little shifts could push entirely one way or the other.</p>
+<p>However, the reason for our model’s performance is that there is a mcuh higher variance in our non-competitive districts, therefore causing the prediction intervals to be wide, and by restricting to competitive races, this variance becomes much smaller, forcing the prediction intervals to fall in much narrower ranges.</p>
+</div>
 <div id="blog-extension-mar-a-lago-raid" class="section level1">
 <h1>Blog Extension: Mar-A-Lago Raid</h1>
 <p>One major unexpected event of this election cycle was the FBI’s raid on Mar-A-Lago, former President Donald Trump’s persoanl residence, in pursuit of missing highly classified documents. This news story captured the attention of both those on the left and the right, as shown in the number of the number of articles that mention “Mar-A-Lago” in the NYTimes spiking during the week of the raid.</p>

@@ -13,8 +13,8 @@
       <pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate>
       
       <guid>https://joshua-doolan.github.io/GOV1347-Blog-Posts-F22/post/2022-10-26-week-7-10-26-22-shocks/</guid>
-      <description>Intro
-Blog Extension: Mar-A-Lago Raid One major unexpected event of this election cycle was the FBI’s raid on Mar-A-Lago, former President Donald Trump’s persoanl residence, in pursuit of missing highly classified documents. This news story captured the attention of both those on the left and the right, as shown in the number of the number of articles that mention “Mar-A-Lago” in the NYTimes spiking during the week of the raid.</description>
+      <description>Model Update This week for the model, I wanted to incorporate shocks, but inherently, these are non-repeatable events. Instead, I focused on testing the sensititivity of my existing model.
+For review, my previous model had two components: a model for predicting competitive races, and a model for predicting non-competitive races. Each model seeks to predict for an individual district the two party vote share for Republicans. Each model carries the same weights/parameters for each district, which is a deliberate modeling choice as opposed to unique parameters for each district, because in 2022, the redistricting inherently causes some issues (for new districts, there is zero data, and for moved districts, such as CA-45, the underlying demographics have fundamentally shifted).</description>
     </item>
     
     <item>

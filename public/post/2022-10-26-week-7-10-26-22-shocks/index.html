@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+		
+		
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Week 7 - 10/26/22 -- Shocks &middot; Election Analytics Blog</title>
+
+		
+		<link rel="stylesheet" href="/GOV1347-Blog-Posts-F22/css/style.css">
+		<link rel="stylesheet" href="/GOV1347-Blog-Posts-F22/css/fonts.css">
+		
+		<link rel="icon" href="/GOV1347-Blog-Posts-F22/favicon.ico"/>
+		<link rel="icon" type="image/png" sizes="32x32" href="/GOV1347-Blog-Posts-F22/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/GOV1347-Blog-Posts-F22/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/GOV1347-Blog-Posts-F22/images/apple-touch-icon.png">
+
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="Election Analytics Blog" />
+
+		<script src="/GOV1347-Blog-Posts-F22/js/darkmode.js"></script>
+	</head>
+
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/">
+					
+						<h2 class="nav-title">Election Analytics Blog</h2>
+					
+				</a>
+				<ul>
+    
+    
+</ul>
+			</div>
+		</nav>
+
+        <div id="darkModeToggle" onclick="toggleDarkMode()">
+  &#9680; 
+</div>
+
+        
+
+<main>
+	
+
+
+        <div class="post">
+		<div class="post-info">
+    <span>Written by</span>
+        R package build
+        <br>
+        <span>on&nbsp;</span><time datetime="2022-10-26 00:00:00 &#43;0000 UTC">October 26, 2022</time>
+</div>
+
+		<h1 class="post-title">Week 7 - 10/26/22 -- Shocks</h1>
+<div class="post-line"></div>
+
+		
+
+		
+
+
+<div id="model-update" class="section level1">
+<h1>Model Update</h1>
+<p>This week for the model, I wanted to incorporate shocks, but inherently, these are non-repeatable events. Instead, I focused on testing the sensititivity of my existing model.</p>
+<p>For review, my previous model had two components: a model for predicting competitive races, and a model for predicting non-competitive races. Each model seeks to predict for an individual district the two party vote share for Republicans. Each model carries the same weights/parameters for each district, which is a deliberate modeling choice as opposed to unique parameters for each district, because in 2022, the redistricting inherently causes some issues (for new districts, there is zero data, and for moved districts, such as CA-45, the underlying demographics have fundamentally shifted).</p>
+<p>My non-competitive race model simply uses district-level incumbency (binary indicators each for D and R) and turnout.</p>
+<p>My competitive race model uses the same data, with expert predictions.</p>
+<p>Previously, my model had predicted the following:</p>
+<pre><code>## [1] &quot;Competitive R Seats: 68/140 = 48.5714285714286%&quot;</code></pre>
+<pre><code>## [1] &quot;Non-Competitive R Seats: 136/295 = 46.1016949152542%&quot;</code></pre>
+<pre><code>## [1] &quot;Total R Seats: 204/435 = 0.468965517241379%&quot;</code></pre>
+<p>At first, these predictions seem low given the recent polling surge of republicans. However, this data is entirely an incumbency based model, and so it generates an advantage for democrats due to their greater number of incumbents. Importantly, the expert model predicts a greater percentage of Republicans, demonstrating that the additional data brings in some Republican leaning.</p>
+<p>To estimate the effect of shocks on my model, I focus on the upper and lower prediction intervals. To do so, for each district, I predict the upper and lower 95% prediction interval, and then recalculate this seat share. Inherently, this is a very flawed approach, as it assumes a 100% correlation in the results, whereas in all likelihoof, shocks would appear only in some districts. Nevertheless, we get the following results:</p>
+<p><strong>Democratic Shock: Each District Lower 95%</strong></p>
+<pre><code>## [1] &quot;Competitive R Seats: 39/140 = 27.8571428571429%&quot;</code></pre>
+<pre><code>## [1] &quot;Non-Competitive R Seats: 0/295 = 0%&quot;</code></pre>
+<pre><code>## [1] &quot;Total R Seats: 39/435 = 0.0896551724137931%&quot;</code></pre>
+<p><strong>Republican Shock: Each District Upper 95%</strong></p>
+<pre><code>## [1] &quot;Competitive R Seats: 116/140 = 82.8571428571429%&quot;</code></pre>
+<pre><code>## [1] &quot;Non-Competitive R Seats: 295/295 = 100%&quot;</code></pre>
+<pre><code>## [1] &quot;Total R Seats: 411/435 = 0.944827586206897%&quot;</code></pre>
+<p>Notably, we see that the competitive district model has much tighter bounds, and therefore seems more realistically resistant to shocks compared to the non-competitive district model, which assumes complete control on either side. At first, this result may seem non-sensical, as we would expect non-competitive districts to be much more resilient, as they should be further from the tipping point, and competitive models highly variable, as little shifts could push entirely one way or the other.</p>
+<p>However, the reason for our model’s performance is that there is a mcuh higher variance in our non-competitive districts, therefore causing the prediction intervals to be wide, and by restricting to competitive races, this variance becomes much smaller, forcing the prediction intervals to fall in much narrower ranges.</p>
+</div>
+<div id="blog-extension-mar-a-lago-raid" class="section level1">
+<h1>Blog Extension: Mar-A-Lago Raid</h1>
+<p>One major unexpected event of this election cycle was the FBI’s raid on Mar-A-Lago, former President Donald Trump’s persoanl residence, in pursuit of missing highly classified documents. This news story captured the attention of both those on the left and the right, as shown in the number of the number of articles that mention “Mar-A-Lago” in the NYTimes spiking during the week of the raid.</p>
+<p><img src="nyt_mal.png" /></p>
+<p>However, it should be noted that we can see that the current level of discussion of Mar-A-Lago has now returned to pre-raid levels, seeming to demostrate that the “shock” has already entirely dissapated. Nevertheless, we can analyze the immediate impact of the raid on the generic polling average:</p>
+<p><img src="generic_bal_mal.png" /></p>
+<p>We notice can notice three possible isnights following the raid:</p>
+<ol style="list-style-type: decimal">
+<li>In the following week, both D and R support decreased. It is possible that the raid exposed unpopular aspects in each: for Republicans, reinforcing the potentially unlawfulness of their party’s leader, and for Democrats, reinforcing the idea that their actions were politically motivated. However, we see that the dip in R support seems to eb larger than the dip in D support.</li>
+<li>The Democratic support increased in wake of the raid, and the Republican support flatlined. A potential explanation for this is that the raid motivated the democratic base and increased support from their base, but there was no Republican change (because all those who would oppose the party due to Trump had already left).</li>
+<li>Finally, it’s possible that the trend of flipping R and D support that began at approximately week 25 continued through the Mar A Lago raid, subject to regular noise. In this case, the raid did little to change opinions in either party.</li>
+</ol>
+<p>Each of these 3 possibilities seems potentially valid based on this (single) data series. Importantly, it shows that the impact of shocks varies widely as you change timeframes of analysism and the degree to which you incprporate other outside information.</p>
+<p>Please note, the plots for these were created in cells 72-74 of the python notebook.</p>
+</div>
+
+
+		
+	</div>
+
+	<div class="pagination">
+		<a href="/GOV1347-Blog-Posts-F22/post/2022-10-19-week-6-10-19-22-the-ground-game/" class="left arrow">&#8592;</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+			
+			<span>
+			&copy; <time datetime="2022-10-26 14:57:30.864599 -0400 EDT m=&#43;0.262436749">2022</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			</span>
+		</footer>
+
+    </body>
+</html>

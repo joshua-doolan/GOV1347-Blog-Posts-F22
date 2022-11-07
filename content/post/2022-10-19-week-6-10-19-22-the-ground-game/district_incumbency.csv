@@ -1,0 +1,436 @@
+state,district,R_inc,D_inc
+Alabama,1,True,False
+Alabama,2,True,False
+Alabama,3,True,False
+Alabama,4,True,False
+Alabama,5,False,False
+Alabama,6,True,False
+Alabama,7,False,True
+Alaska,at-large,False,True
+Arizona,1,True,False
+Arizona,2,False,True
+Arizona,3,False,True
+Arizona,4,False,True
+Arizona,5,True,False
+Arizona,6,False,False
+Arizona,7,False,True
+Arizona,8,True,False
+Arizona,9,True,False
+Arkansas,1,True,False
+Arkansas,2,True,False
+Arkansas,3,True,False
+Arkansas,4,True,False
+California,1,True,False
+California,2,False,True
+California,3,False,False
+California,4,False,True
+California,5,True,False
+California,6,False,True
+California,7,False,True
+California,8,False,True
+California,9,False,True
+California,10,False,True
+California,11,False,True
+California,12,False,True
+California,13,False,False
+California,14,False,True
+California,15,False,False
+California,16,False,False
+California,17,False,True
+California,18,False,True
+California,19,False,True
+California,20,True,False
+California,21,False,True
+California,22,True,False
+California,23,True,False
+California,24,False,True
+California,25,False,True
+California,26,False,True
+California,27,True,False
+California,28,False,True
+California,29,False,False
+California,30,False,False
+California,31,False,True
+California,32,False,True
+California,33,False,True
+California,34,False,True
+California,35,False,True
+California,36,False,True
+California,37,False,False
+California,38,False,True
+California,39,False,True
+California,40,True,False
+California,41,True,False
+California,42,False,False
+California,43,False,True
+California,44,False,True
+California,45,True,False
+California,46,False,True
+California,47,False,True
+California,48,True,False
+California,49,False,True
+California,50,False,True
+California,51,False,True
+California,52,False,True
+Colorado,1,False,True
+Colorado,2,False,True
+Colorado,3,True,False
+Colorado,4,True,False
+Colorado,5,True,False
+Colorado,6,False,True
+Colorado,7,False,False
+Colorado,8,False,False
+Connecticut,1,False,True
+Connecticut,2,False,True
+Connecticut,3,False,True
+Connecticut,4,False,True
+Connecticut,5,False,True
+Delaware,at-large,False,True
+Florida,1,True,False
+Florida,2,True,True
+Florida,3,True,False
+Florida,4,False,False
+Florida,5,True,False
+Florida,6,True,False
+Florida,7,False,False
+Florida,8,True,False
+Florida,9,False,True
+Florida,10,False,False
+Florida,11,True,False
+Florida,12,True,False
+Florida,13,False,False
+Florida,14,False,True
+Florida,15,False,False
+Florida,16,True,False
+Florida,17,True,False
+Florida,18,True,False
+Florida,19,True,False
+Florida,20,False,True
+Florida,21,True,False
+Florida,22,False,True
+Florida,23,False,False
+Florida,24,False,True
+Florida,25,False,True
+Florida,26,True,False
+Florida,27,True,False
+Florida,28,True,False
+Georgia,1,True,False
+Georgia,2,False,True
+Georgia,3,True,False
+Georgia,4,False,True
+Georgia,5,False,True
+Georgia,6,False,False
+Georgia,7,False,True
+Georgia,8,True,False
+Georgia,9,True,False
+Georgia,10,False,False
+Georgia,11,True,False
+Georgia,12,True,False
+Georgia,13,False,True
+Georgia,14,True,False
+Hawaii,1,False,True
+Hawaii,2,False,False
+Idaho,1,True,False
+Idaho,2,True,False
+Illinois,1,False,False
+Illinois,2,False,True
+Illinois,3,False,False
+Illinois,4,False,True
+Illinois,5,False,True
+Illinois,6,False,True
+Illinois,7,False,True
+Illinois,8,False,True
+Illinois,9,False,True
+Illinois,10,False,True
+Illinois,11,False,True
+Illinois,12,True,False
+Illinois,13,False,False
+Illinois,14,False,True
+Illinois,15,True,False
+Illinois,16,True,False
+Illinois,17,False,False
+Indiana,1,False,True
+Indiana,2,False,False
+Indiana,3,True,False
+Indiana,4,True,False
+Indiana,5,True,False
+Indiana,6,True,False
+Indiana,7,False,True
+Indiana,8,True,False
+Indiana,9,False,False
+Iowa,1,True,False
+Iowa,2,True,False
+Iowa,3,False,True
+Iowa,4,True,False
+Kansas,1,True,False
+Kansas,2,True,False
+Kansas,3,False,True
+Kansas,4,True,False
+Kentucky,1,True,False
+Kentucky,2,True,False
+Kentucky,3,False,False
+Kentucky,4,True,False
+Kentucky,5,True,False
+Kentucky,6,True,False
+Louisiana,1,False,False
+Louisiana,2,False,False
+Louisiana,3,False,False
+Louisiana,4,False,False
+Louisiana,5,False,False
+Louisiana,6,False,False
+Maine,1,False,True
+Maine,2,False,True
+Maryland,1,True,False
+Maryland,2,False,True
+Maryland,3,False,True
+Maryland,4,False,False
+Maryland,5,False,True
+Maryland,6,False,True
+Maryland,7,False,True
+Maryland,8,False,True
+Massachusetts,1,False,True
+Massachusetts,2,False,True
+Massachusetts,3,False,True
+Massachusetts,4,False,True
+Massachusetts,5,False,True
+Massachusetts,6,False,True
+Massachusetts,7,False,True
+Massachusetts,8,False,True
+Massachusetts,9,False,True
+Michigan,1,True,False
+Michigan,2,True,False
+Michigan,3,False,False
+Michigan,4,True,False
+Michigan,5,True,False
+Michigan,6,False,True
+Michigan,7,False,True
+Michigan,8,False,True
+Michigan,9,True,False
+Michigan,10,False,False
+Michigan,11,False,True
+Michigan,12,False,True
+Michigan,13,False,False
+Minnesota,1,True,False
+Minnesota,2,False,False
+Minnesota,3,False,False
+Minnesota,4,False,False
+Minnesota,5,False,False
+Minnesota,6,True,False
+Minnesota,7,True,False
+Minnesota,8,True,False
+Mississippi,1,True,False
+Mississippi,2,False,True
+Mississippi,3,True,False
+Mississippi,4,False,False
+Missouri,1,False,True
+Missouri,2,True,False
+Missouri,3,True,False
+Missouri,4,False,False
+Missouri,5,False,True
+Missouri,6,True,False
+Missouri,7,False,False
+Missouri,8,True,False
+Montana,1,False,False
+Montana,2,True,False
+Nebraska,1,True,False
+Nebraska,2,True,False
+Nebraska,3,True,False
+Nevada,1,False,True
+Nevada,2,True,False
+Nevada,3,False,True
+Nevada,4,False,True
+New Hampshire,1,False,True
+New Hampshire,2,False,True
+New Jersey,1,False,True
+New Jersey,2,True,False
+New Jersey,3,False,True
+New Jersey,4,True,False
+New Jersey,5,False,True
+New Jersey,6,False,True
+New Jersey,7,False,True
+New Jersey,8,False,False
+New Jersey,9,False,True
+New Jersey,10,False,True
+New Jersey,11,False,True
+New Jersey,12,False,True
+New Mexico,1,False,True
+New Mexico,2,True,False
+New Mexico,3,False,True
+New York,1,False,False
+New York,2,True,False
+New York,3,False,False
+New York,4,False,False
+New York,5,False,True
+New York,6,False,True
+New York,7,False,True
+New York,8,False,True
+New York,9,False,True
+New York,10,False,False
+New York,11,True,False
+New York,12,False,True
+New York,13,False,True
+New York,14,False,True
+New York,15,False,True
+New York,16,False,True
+New York,17,False,True
+New York,18,False,True
+New York,19,False,False
+New York,20,False,True
+New York,21,True,False
+New York,22,False,False
+New York,23,False,False
+New York,24,True,False
+New York,25,False,True
+New York,26,False,True
+North Carolina,1,False,False
+North Carolina,2,False,True
+North Carolina,3,True,False
+North Carolina,4,False,False
+North Carolina,5,True,False
+North Carolina,6,False,True
+North Carolina,7,True,False
+North Carolina,8,True,False
+North Carolina,9,True,False
+North Carolina,10,True,False
+North Carolina,11,False,False
+North Carolina,12,False,True
+North Carolina,13,False,False
+North Carolina,14,False,False
+North Dakota,at-large,True,False
+Ohio,1,True,False
+Ohio,2,True,False
+Ohio,3,False,True
+Ohio,4,True,False
+Ohio,5,True,False
+Ohio,6,True,False
+Ohio,7,False,False
+Ohio,8,True,False
+Ohio,9,False,True
+Ohio,10,True,False
+Ohio,11,False,True
+Ohio,12,True,False
+Ohio,13,False,False
+Ohio,14,True,False
+Ohio,15,True,False
+Oklahoma,1,True,False
+Oklahoma,2,False,False
+Oklahoma,3,True,False
+Oklahoma,4,True,False
+Oklahoma,5,True,False
+Oregon,1,False,True
+Oregon,2,True,False
+Oregon,3,False,True
+Oregon,4,False,False
+Oregon,5,False,False
+Oregon,6,False,False
+Pennsylvania,1,True,False
+Pennsylvania,2,False,True
+Pennsylvania,3,False,True
+Pennsylvania,4,False,True
+Pennsylvania,5,False,True
+Pennsylvania,6,False,True
+Pennsylvania,7,False,True
+Pennsylvania,8,False,True
+Pennsylvania,9,True,False
+Pennsylvania,10,True,False
+Pennsylvania,11,True,False
+Pennsylvania,12,False,False
+Pennsylvania,13,True,False
+Pennsylvania,14,True,False
+Pennsylvania,15,True,False
+Pennsylvania,16,True,False
+Pennsylvania,17,False,False
+Rhode Island,1,False,True
+Rhode Island,2,False,False
+South Carolina,1,True,False
+South Carolina,2,True,False
+South Carolina,3,True,False
+South Carolina,4,True,False
+South Carolina,5,True,False
+South Carolina,6,False,True
+South Carolina,7,False,False
+South Dakota,at-large,True,False
+Tennessee,1,True,False
+Tennessee,2,True,False
+Tennessee,3,True,False
+Tennessee,4,True,False
+Tennessee,5,False,False
+Tennessee,6,True,False
+Tennessee,7,True,False
+Tennessee,8,True,False
+Tennessee,9,False,True
+Texas,1,False,False
+Texas,2,True,False
+Texas,3,False,False
+Texas,4,True,False
+Texas,5,True,False
+Texas,6,True,False
+Texas,7,False,True
+Texas,8,False,False
+Texas,9,False,True
+Texas,10,True,False
+Texas,11,True,False
+Texas,12,True,False
+Texas,13,True,False
+Texas,14,True,False
+Texas,15,False,False
+Texas,16,False,True
+Texas,17,True,False
+Texas,18,False,True
+Texas,19,True,False
+Texas,20,False,True
+Texas,21,True,False
+Texas,22,True,False
+Texas,23,True,False
+Texas,24,True,False
+Texas,25,True,False
+Texas,26,True,False
+Texas,27,True,False
+Texas,28,False,True
+Texas,29,False,True
+Texas,30,False,False
+Texas,31,True,False
+Texas,32,False,True
+Texas,33,False,True
+Texas,34,True,True
+Texas,35,False,False
+Texas,36,True,False
+Texas,37,False,True
+Texas,38,False,False
+Utah,1,True,False
+Utah,2,True,False
+Utah,3,True,False
+Utah,4,True,False
+Vermont,at-large,False,False
+Virginia,1,True,False
+Virginia,2,False,True
+Virginia,3,False,True
+Virginia,4,False,True
+Virginia,5,True,False
+Virginia,6,True,False
+Virginia,7,False,True
+Virginia,8,False,True
+Virginia,9,True,False
+Virginia,10,False,True
+Virginia,11,False,True
+Washington,1,False,True
+Washington,2,False,True
+Washington,3,False,False
+Washington,4,True,False
+Washington,5,True,False
+Washington,6,False,True
+Washington,7,False,True
+Washington,8,False,True
+Washington,9,False,True
+Washington,10,False,True
+West Virginia,1,True,False
+West Virginia,2,True,False
+Wisconsin,1,True,False
+Wisconsin,2,False,True
+Wisconsin,3,False,False
+Wisconsin,4,False,True
+Wisconsin,5,True,False
+Wisconsin,6,True,False
+Wisconsin,7,True,False
+Wisconsin,8,True,False
+Wyoming,at-large,False,False

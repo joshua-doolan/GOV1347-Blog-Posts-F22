@@ -44,3 +44,5 @@ vignettes/*.pdf
 .DS_Store
 
 *ads_issues_2012-2018 (1).csv
+
+*.env

@@ -1,0 +1,2 @@
+,year,is_midterm_year,rep_pres,RepSeatShare_prior,RepVoteShare_prior,absolute_sentiment,sentiment_change,absolute_gdp,gdp_change,rdi,rdi_change,annual_poll_approval,two_month_poll_approval,annual_poll_disapproval,two_month_poll_disapproval,annual_dem,two_month_dem,annual_rep,two_month_rep
+36,2022,1,False,0.4896551724137931,0.4874277933249046,58.6,-19.433333333333344,2.6,-0.6285714285714286,45389.0,-0.1188655070663146,41.6306230529595,42.266799,53.56392912772585,53.052741,44.08188284518828,45.510514,43.55255230125523,46.566844
